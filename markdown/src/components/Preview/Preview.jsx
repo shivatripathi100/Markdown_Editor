@@ -1,7 +1,9 @@
 import TitleBar from '../TitleBar/TitleBar';
 import { useMarkdown } from '../../providers/MarkdownProvider';
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios'; 
 import { useEffect, useState } from 'react';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css';
 import './Preview.css';
 
 const Preview = () => {
@@ -19,6 +21,15 @@ const Preview = () => {
     };
     convertMarkdown();
   }, [markdown]);
+
+  useEffect(() => {
+    const highlightCode = () => {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+    };
+    highlightCode();
+  }, [html]);
 
   return (
     <div className="preview">
